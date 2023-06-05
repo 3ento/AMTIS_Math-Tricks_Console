@@ -1,5 +1,5 @@
 # AMTIS_Math-Tricks_Console
-[Az Moga Tuk I Sega](https://az-moga.bg/) (translated "I can, right here, right now") game from competitive category "*Programming*". <sub>03.06 2023</sub>
+[Az Moga Tuk I Sega](https://contest.az-moga.bg/it/2023) (translated "I can, right here, right now") game from competitive category "*Programming*". <sub>03.06 2023</sub>
 
 ## Game description: 
 "MathTricks" is played by two players on a board with dimensions (NxM) divided into cells (the players decide the size of the playing field at the beginning of the game).
