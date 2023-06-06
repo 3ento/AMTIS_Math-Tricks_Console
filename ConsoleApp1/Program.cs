@@ -7,7 +7,6 @@ namespace ConsoleApp1
     /*
      * TODO: 
      * Organize code by seperating big classes and functions like Player
-     * Figure out why diagonal moves don't work sometimes despite being recognized as valid moves by GetAvailableSurroundingMoves()
      * Make a better number generation algorithym, as the current one is highly unfair and lacks negative numbers
      * (?) Implement up to 4 players
      * Implement game sessions, see last bonus point on PDF file
@@ -40,7 +39,7 @@ namespace ConsoleApp1
                 }
                 else
                 {
-                    Console.WriteLine("This move is illegal, please pick one of the available positions: ");
+                    Console.WriteLine($"({pl.GetCurrentPosition()._x} {pl.GetCurrentPosition()._y}) can't go to ({new_x} {new_y}), please pick one of the available positions: ");
 
                     foreach (Node node in pl.GetAvailableSurroundingMoves())
                     {
@@ -68,7 +67,7 @@ namespace ConsoleApp1
                         continue;
                     }
 
-                    int value = rnd.Next(0, 11);
+                    int value = rnd.Next(-10, 11);
                     int operation = rnd.Next(0, 4);
 
                     // prevent divide by 0
@@ -286,7 +285,7 @@ namespace ConsoleApp1
                         break;
                     case ConsoleKey.C:
                         new_x = taken_nodes.Last()._x + 1;
-                        new_y = taken_nodes.Last()._x + 1;
+                        new_y = taken_nodes.Last()._y + 1;
 
                         MoveAttempt(new_x, new_y, this);
 
