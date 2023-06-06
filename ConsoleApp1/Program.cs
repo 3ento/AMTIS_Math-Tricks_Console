@@ -10,7 +10,6 @@ namespace ConsoleApp1
      * Make a better number generation algorithym, as the current one is highly unfair and lacks negative numbers
      * (?) Implement up to 4 players
      * Implement game sessions, see last bonus point on PDF file
-     * Find a way to evenly print the grid, as rn it's kinda hard to see what node is above/below you as opposed to diagonally to you
      * Implement better keybinds, hopefully some sort of list works but if not, just WASD/Arrow Keys(idk how diags would work tho)/Numpad
     */
     internal class Program
@@ -109,7 +108,7 @@ namespace ConsoleApp1
                             Console.ForegroundColor = ConsoleColor.Red;
                         }
 
-                        Console.Write(grid[i][j]._operation + grid[i][j]._value + " ");
+                        Console.Write(string.Format("{0,4} ", grid[i][j]));
                         Console.ForegroundColor = ConsoleColor.White;
                         continue;
                     }
@@ -131,7 +130,8 @@ namespace ConsoleApp1
                     }
 
                     Console.ForegroundColor = color;
-                    Console.Write(grid[i][j]._operation + grid[i][j]._value + " ");
+
+                    Console.Write(string.Format("{0,4} ", grid[i][j]));
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
@@ -312,7 +312,7 @@ namespace ConsoleApp1
         public class Node { 
             public int _x; public int _y;
             public bool available;
-            public Player owner = null;
+            public Player owner = null!;
 
             public int _value;
             public string _operation;
@@ -325,7 +325,7 @@ namespace ConsoleApp1
                 _operation = _operationList[operation];
                 _numeral_operation = operation;
                 available = true;
-                owner = null;
+                owner = null!;
             }
 
             public void Occupy(Player player) { 
@@ -335,7 +335,8 @@ namespace ConsoleApp1
 
             public override string ToString()
             {
-                return $"{_operation}{_value}| Position: ({_x} {_y})";
+                //return $"{_operation}{_value}| Position: ({_x} {_y})";
+                return $"{_operation}{_value}";
             }
         }
         
