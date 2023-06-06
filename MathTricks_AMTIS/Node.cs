@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp1
+﻿namespace MathTricks_AMTIS
 {
     
         public class Node { 

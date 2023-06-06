@@ -1,4 +1,4 @@
-﻿using ConsoleApp1;
+﻿using MathTricks_AMTIS;
 using System;
 using System.Drawing;
 using System.Runtime.CompilerServices;

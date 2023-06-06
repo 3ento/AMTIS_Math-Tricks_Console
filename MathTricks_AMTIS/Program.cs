@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Runtime.CompilerServices;
 
-namespace ConsoleApp1
+namespace MathTricks_AMTIS
 {
     /*
      * TODO: 
