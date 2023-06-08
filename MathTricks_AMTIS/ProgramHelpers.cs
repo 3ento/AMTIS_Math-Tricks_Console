@@ -15,19 +15,11 @@ internal static class ProgramHelpers
 
     public static void GenerateGrid(int _width, int _height)
     {
-        Random rnd = new Random();
         for (int i = 0; i < _width; i++)
         {
             grid.Add(new List<Node>());
             for (int j = 0; j < _height; j++)
             {
-                // sets starting pos colors
-                if (i == 0 && j == 0 || i == _width - 1 && j == _height - 1)
-                {
-                    grid[i].Add(new Node(i, j, 0, 4));
-                    continue;
-                }
-
                 int[] value_operation_arr = GenerateNodeValues();
 
                 int value = value_operation_arr[0];
@@ -41,6 +33,16 @@ internal static class ProgramHelpers
 
                 grid[i].Add(new Node(i, j, value, operation));
             }
+            
+        }
+        foreach (Player pl in players)
+        {
+            pl.taken_nodes.Add(grid[pl.starting_pos_x][pl.starting_pos_y]);
+            grid[pl.starting_pos_x][pl.starting_pos_y].Occupy(pl);
+
+            grid[pl.starting_pos_x][pl.starting_pos_y]._value = 0;
+            grid[pl.starting_pos_x][pl.starting_pos_y]._operation = "";
+
         }
     }
 
@@ -77,40 +79,14 @@ internal static class ProgramHelpers
         }
     }
 
-    public static void PrintGrid(int _width, int _height, int turn)
+    public static void PrintGrid(int _width, int _height, Player current_player)
     {
         Console.Clear();
-        Player current_player;
-
-        if (turn % 2 == 0)
-        {
-            current_player = players[0];
-        }
-        else
-        {
-            current_player = players[1];
-        }
-
 
         for (int i = 0; i < _width; i++)
         {
             for (int j = 0; j < _height; j++)
             {
-                // sets starting pos colors
-                if (i == 0 && j == 0 || i == _width - 1 && j == _height - 1)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    if (i == _width - 1 && j == _height - 1)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                    }
-
-                    Console.Write(string.Format("{0,4} ", grid[i][j]));
-                    Console.ForegroundColor = ConsoleColor.White;
-                    continue;
-                }
-
-
                 ConsoleColor color;
                 if (grid[i][j].owner != null)
                 {
@@ -151,7 +127,6 @@ internal static class ProgramHelpers
         return winners;
     }
 
-    
     public static int[] GenerateNodeValues() {
         double sample = new Random().NextDouble();
         Random selector = new Random();
@@ -185,5 +160,13 @@ internal static class ProgramHelpers
 
         return new int[2] {value, operation};
     }
-    
+
+    public static bool TerminateGame(List<Player> players) {
+        foreach (Player pl in players) {
+            if (pl.GetAvailableSurroundingMoves().Count == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

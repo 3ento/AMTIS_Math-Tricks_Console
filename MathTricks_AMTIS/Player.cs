@@ -5,6 +5,8 @@
         {
             public string _name;
             public int _score = 0;
+            public int starting_pos_x;
+            public int starting_pos_y;
             public List<Node> taken_nodes = new List<Node>();
             public ConsoleColor _color;
 
@@ -12,8 +14,9 @@
             {
                 _name = name;
                 _color = color;
-                taken_nodes.Add(ProgramHelpers.grid[starting_pos_x][starting_pos_y]);
-                ProgramHelpers.grid[starting_pos_x][starting_pos_y].Occupy(this);
+                
+                this.starting_pos_x = starting_pos_x;
+                this.starting_pos_y = starting_pos_y;
             }
 
             public Node GetCurrentPosition()
