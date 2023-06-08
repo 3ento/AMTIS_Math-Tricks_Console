@@ -6,7 +6,7 @@ namespace MathTricks_AMTIS
 {
     /*
      * TODO: 
-     * Make a better number generation algorithm, as the current one is highly unfair and lacks negative numbers
+     * --Make a better number generation algorithm, as the current one is highly unfair and lacks negative numbers
      * (?) Implement up to 4 players
      * Implement game sessions, see last bonus point on PDF file
     */

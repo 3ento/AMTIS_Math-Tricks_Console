@@ -28,9 +28,11 @@ internal static class ProgramHelpers
                     continue;
                 }
 
-                int value = rnd.Next(-10, 11);
-                int operation = rnd.Next(0, 4);
+                int[] value_operation_arr = GenerateNodeValues();
 
+                int value = value_operation_arr[0];
+                int operation = value_operation_arr[1];
+                
                 // prevent divide by 0
                 if (value == 0 && operation == 3)
                 {
@@ -137,7 +139,7 @@ internal static class ProgramHelpers
 
     public static List<Player> GetWinners(List<Player> players) 
     {
-        int max_score = players.Select(x => x).Where(x => x._score == players.Select(x => x._score).Max()).Select(x => x._score).ToList()[0];
+        int max_score = players.OrderByDescending(x => x._score).First()._score;
         List<Player> winners = new List<Player>();
 
         foreach (Player pl in players) {
@@ -148,4 +150,40 @@ internal static class ProgramHelpers
 
         return winners;
     }
+
+    
+    public static int[] GenerateNodeValues() {
+        double sample = new Random().NextDouble();
+        Random selector = new Random();
+        int value = 1;
+        int operation = 0;
+        int idx;
+
+        List<int> super_rare_values = new List<int>() { 9, 10, -9, -10, 0 };
+
+        List<int> rare_values = new List<int>() { 2, 7, 8, -2, -7, -8 };
+
+        List<int> common_values = new List<int>() { 3, 4, 5, 6, -3, -4, -5, -6 };
+
+        if (0.1 >= sample)
+        {
+            idx = selector.Next(0, 6);
+            value = rare_values[idx];
+            operation = selector.Next(2, 4);
+        }
+        else if (0.2 <= sample && sample <= 0.8)
+        {
+            idx = selector.Next(0, 8);
+            value = common_values[idx];
+            operation = selector.Next(0, 2);
+        }
+        else if (0.9 < sample) {
+            idx = selector.Next(0, 5);
+            value = super_rare_values[idx];
+            operation = selector.Next(2, 4);
+        }
+
+        return new int[2] {value, operation};
+    }
+    
 }
